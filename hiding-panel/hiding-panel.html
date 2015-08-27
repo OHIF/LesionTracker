@@ -1,0 +1,18 @@
+<script type="text/javascript" src="js/hiding-panel.js"></script>
+<template id="hiding-panel-template">
+    <style>
+        /*Import lesion-table-style for main styles of shadow dom*/
+        @import url("hiding-panel/css/hiding-panel.css");
+        @import url("css/font-awesome.min.css");
+    </style>
+    <nav id="verticalPanel">
+        <div id="menu" class="menu">
+            <div class="panel-content" style="height: 100%">
+                <content style="height: 100%;"></content>
+            </div>
+        </div>
+        <button id="btnCollapse">
+            <i class="btnCollapse_icon  fa fa-fw"></i>
+        </button>
+    </nav>
+</template>

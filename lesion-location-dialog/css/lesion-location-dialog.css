@@ -1,0 +1,85 @@
+/*Lesion Dialog Box*/
+#lesionDialog{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: -185px;
+    left: -305px;
+    bottom: 0;
+    right: 0;
+    background-color: transparent;
+    border:none;
+    overflow: hidden;
+}
+#lesionDialogContent{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    z-index: 2;
+}
+
+#lesionDialogWrapper{
+    position: absolute;
+    color: #424242;
+    z-index: 500;
+    padding: 5px;
+    padding-bottom: 20px;
+    margin:0;
+    width: 220px;
+    height: 100px;
+    border-color:#424242;
+    border-radius: 10px;
+    background-color: white;
+
+}
+
+.dialogHeader{
+    width:100%;
+    height: 35px;
+    margin: 0 auto;
+    float:none;
+    border-bottom: solid 1px lightgray;
+}
+
+.dialogHeader h4{
+    padding: 5px;
+    margin: 0;
+}
+.dialogContent{
+    color: #000000;
+    margin: 10px auto;
+}
+
+.dialogTitle{
+    width: 70%;
+    float: left;
+    text-align: left;
+    padding: 5px;
+}
+
+.dialogClose{
+    width: 30%;
+    float: left;
+    text-align: right;
+}
+
+#selectLesionLocation{
+    font-size: 15px;
+    line-height: 1;
+    height: 30px;
+}
+
+#btnCloseLesionPopup{
+    padding:5px;
+    border: 0;
+    background-color: transparent;
+}
+#btnCloseLesionPopup:focus{
+    outline: 0;
+}
+
+.lesionLocation{
+    width:100%;
+    margin: 0 auto;
+    float: none;
+}
