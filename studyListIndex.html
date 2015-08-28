@@ -4,7 +4,7 @@
     <meta charset="UTF-8" HTTP-EQUIV="Pragma" CONTENT="no-cache">
     <title>Lesion Tracker</title>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/view_style.css">
     <link rel="icon" href="images/logo.png">
 
@@ -24,7 +24,7 @@
 <body>
 <div id="topContainer" class="top-container" style="color:white;">
     <!--hiding-panel begins-->
-    <hiding-panel type="right" h="100%" w="400" resizing="true" title="Lesion Tables">
+    <hiding-panel type="right" height="100" width="30" resizing="true" title="Lesion Tables">
         <table is="lesion-table" id="left" height="320" caption="Current"></table>
         <table is="lesion-table" id="right" height="320" caption="Prior"></table>
     </hiding-panel>
@@ -58,7 +58,7 @@
 </div><!--top-container ends-->
 
 <!-- hiding-panel for thumbnails-->
-<hiding-panel type="bottom" h="30%" title="Thumbnails" resizing="true">
+<hiding-panel type="bottom" height="30" title="Thumbnails" resizing="true">
     <div id="bottomContainer" class="bottom-container">
     </div><!--bottom-conainer ends-->
 </hiding-panel>

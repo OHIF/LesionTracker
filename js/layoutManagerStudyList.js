@@ -1,10 +1,85 @@
-/**
- * Created by ayselafsar on 24/06/15.
- */
 
-var wrapperPercentageRight;
-var topContainerHeightPercentage;
-var rightPanelIsOpen = true;
+//Listens collapse event of <hiding-panel>
+$(document).on("HidingPanelCollapseEvent",function(e,data){
+
+    if(data.type === "bottom" && data.resizing){
+        var topContainer = $("#topContainer");
+        if(data.panelIsOpen){
+            var dif = 100 - parseFloat(data.height);
+            //panel is opened
+            topContainer.css("height",dif+"%");
+
+        }else{
+            //panel is closed
+            topContainer.css("height","100%");
+
+        }
+
+        topContainer.one("webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend",
+            function(event) {
+                // Resize images when the transition ends
+
+                var w = $("#wrapper").width()/2;
+                var h = $("#topContainer").height();
+
+                for(var i=0;i<cornerstoneEls.length;i++){
+                    var _id = cornerstoneEls[i].getAttribute('id');
+                    var _type = cornerstoneEls[i].getAttribute('type');
+                    var el = document.getElementById(_id);
+                    var shadowEl = el.shadowRoot;
+                    shadowEl.resizeStudyViewer();
+                    if(_type === "viewer") {
+
+                        shadowEl.resizeViewport(w,h);
+                    }
+                }
+            });
+
+    }else if(data.type === "right" && data.resizing){
+
+        var wrapper = $("#wrapper");
+        if(data.panelIsOpen){
+            var dif = 100 - parseFloat(data.width);
+
+            //panel is opened
+            wrapper.css("margin-right",data.width+"%");
+            wrapper.css("width", (dif-1)+"%");
+
+        }else{
+            //panel is closed
+            wrapper.css("margin-right","0%");
+            wrapper.css("width", "100%");
+
+        }
+
+        wrapper.one("webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend",
+            function(event) {
+                // Resize images when the transition ends
+
+                var w = $("#wrapper").width()/2;
+                var h = $("#topContainer").height();
+
+                for(var i=0;i<cornerstoneEls.length;i++){
+                    var _id = cornerstoneEls[i].getAttribute('id');
+                    var _type = cornerstoneEls[i].getAttribute('type');
+                    var el = document.getElementById(_id);
+                    var shadowEl = el.shadowRoot;
+                    shadowEl.resizeStudyViewer();
+                    if(_type === "viewer") {
+
+                        shadowEl.resizeViewport(w,h);
+                    }
+                }
+            });
+    }
+
+});
+
+$(document).ready(function(){
+
+    //Set elements size when dom is ready
+    setElementsSize();
+});
 
 function setElementsSize(){
 
@@ -12,148 +87,38 @@ function setElementsSize(){
     for(var i=0;i<hidingPanels.length;i++){
         var _type = hidingPanels[i].getAttribute('type');
         var _resizing = hidingPanels[i].getAttribute('resizing');
-        var _height = hidingPanels[i].getAttribute('h');
-        var _width = hidingPanels[i].getAttribute('w');
+        var _height = hidingPanels[i].getAttribute('height');
+        var _width = hidingPanels[i].getAttribute('width');
 
         if(_type === "bottom") {
 
-            //Check height includes %
-            var n = _height.search("%");
-            if(n > 0){
-                var splitHeight = _height.split("%");
-                var h = splitHeight[0];
+            if(_resizing === "true") {
 
-                if(_resizing === "true") {
-
-                    var topContainerH = 100 - parseInt(h);
-                    topContainerHeightPercentage = topContainerH+"%";
-                    $("#topContainer").css("height", topContainerH+"%");
-
-                }else{
-
-                    $("#topContainer").css("height", "100%");
-
-                }
-
+                var topContainerH = 100 - parseFloat(_height);
+                $("#topContainer").css("height", topContainerH+"%");
             }else{
 
-                var topContainerH = $(window).height() - _height;
-                $("#topContainer").css("height", topContainerH+"px");
+                $("#topContainer").css("height", "100%");
             }
-
         }else if(_type === "right") {
 
             var topContainerWidth = $("#topContainer").width();
+            var wrapper = $("#wrapper");
+
             if(_resizing === "true"){
 
-                var wrapperWidth =  topContainerWidth - _width;
-                var wrapperPercentage = (wrapperWidth / topContainerWidth) * 100;
-                wrapperPercentageRight = wrapperPercentage;
-                $("#wrapper").css("width", Math.floor(wrapperPercentage)+"%");
-                $("#wrapper").css("margin-right", Math.floor(100 - wrapperPercentage)+"%");
-
+                var wrapperWidth =  100 - parseFloat(_width);
+                var wrapperMargin =  parseFloat(_width);
+                wrapper.css("width", (wrapperWidth-1)+"%"); //-1: space bw wrapper and panel
+                wrapper.css("margin-right", wrapperMargin+"%");
             }else{
 
-                $("#wrapper").css("width", "100%");
-                $("#wrapper").css("margin-right", "0px");
+                wrapper.css("width", "100%");
+                wrapper.css("margin-right", "0px");
             }
         }
+
+        resizeCornerstoneEls();
+
     }
 }
-
-//Listens collapse event of <hiding-panel>
-$(document).on("HidingPanelCollapseEvent",function(e,data){
-
-    var w; //Holds viewport width: responsive viewport elements while hiding-panel is shown/hide
-    var h; //Holds viewport height
-
-    //data.type indicates hiding-panel alignment direction: bottom,right,left
-    if(data.type === "bottom"){
-
-        //Bottom hiding-panel and responsive with other window elements: if resizing = "true" for bottom hiding panel
-        if(data.resizing){
-
-            //Resize other elements
-            if(!data.collapse){
-
-                $("#topContainer").css("height","100%");
-                h = $(window).height();
-            }else{
-
-                var topContainerHeight = $(window).height() - data.height;
-                $("#topContainer").css("height",topContainerHeightPercentage+"%");
-                h = topContainerHeight;
-            }
-
-            w = $("#wrapper").width()/2;
-        }
-
-    }else if(data.type === "right"){
-
-        //Right hiding-panel and responsive with other window elements: if resizing = "true" for right hiding panel
-
-        if(data.resizing){
-
-            var topContainerWidth = $("#topContainer").width();
-            h = $("#wrapper").innerHeight();
-
-            rightPanelIsOpen = !data.collapse;
-
-            if(data.collapse){
-                var wrapperWidth =  topContainerWidth;
-                w = wrapperWidth / 2;
-                $("#wrapper").css("margin-right","0%");
-                $("#wrapper").css("width", "100%");
-
-            }else{
-                var wrapperWidth =  topContainerWidth - data.width;
-                var wrapperPercentage = Math.floor(wrapperWidth / topContainerWidth * 100);
-
-                w = wrapperWidth / 2;
-                $("#wrapper").css("margin-right",Math.floor(100 - wrapperPercentage)+"%");
-                $("#wrapper").css("width", Math.ceil(wrapperPercentage)+"%");
-
-            }
-        }
-
-    }else if(data.type === "left"){
-
-        //Left hiding-panel and responsive with other window elements: if resizing = "true" for left hiding panel
-        if(data.resizing){
-            var topContainerWidth = $("#topContainer").width();
-            h = $("#wrapper").innerHeight();
-
-            if(data.collapse){
-                var wrapperWidth =  topContainerWidth;
-                var wrapperPercentage = wrapperWidth / topContainerWidth * 100;
-
-                $("#wrapper").css("margin-left","0%");
-                $("#wrapper").css("width", wrapperPercentage+"%");
-                w = $("#wrapper").width() / 2;
-
-            }else{
-                var wrapperWidth =  topContainerWidth - data.width;
-                var wrapperPercentage = wrapperWidth / topContainerWidth * 100;
-                $("#wrapper").css("margin-left",(100 - wrapperPercentage)+"%");
-                $("#wrapper").css("width", wrapperPercentage+"%");
-                w = $("#wrapper").width() / 2;
-            }
-        }
-    }
-
-
-    //Resize viewport elements if their size are changed
-    for(var i=0;i<cornerstoneEls.length;i++){
-        var _id = cornerstoneEls[i].getAttribute('id');
-        var _type = cornerstoneEls[i].getAttribute('type');
-        var el = document.getElementById(_id);
-        var shadowEl = el.shadowRoot;
-        shadowEl.resizeStudyViewer();
-        if(_type === "viewer") {
-
-            shadowEl.resizeViewport(w,h);
-        }
-    }
-});/**
- * Created by ayselafsar on 05/08/15.
- */

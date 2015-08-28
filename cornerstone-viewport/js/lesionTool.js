@@ -41,8 +41,8 @@ var cornerstoneTools = (function ($, cornerstone, cornerstoneMath, cornerstoneTo
                     active: true
                 }
             },
-            index: lineIndex, //This property is added by ayselafsar
-            measurementText: "", //This property is added by ayselafsar
+            index: lineIndex,
+            measurementText: "",
             linkedTextCoords: {
                 start : {
                     x : mouseEventData.currentPoints.image.x,
@@ -104,7 +104,6 @@ var cornerstoneTools = (function ($, cornerstone, cornerstoneMath, cornerstoneTo
             context.save();
             var data = toolData.data[i];
             var colorLinkedLine;
-            //This line is changed by ayselafsar
             var isActiveLine = pointNearTool(data,cornerstoneTools.activeToolcoordinate.getCoords());
             var isTextActive =  pointNearToolForText(data,cornerstoneTools.activeToolcoordinate.getCoords());
 
@@ -191,7 +190,6 @@ var cornerstoneTools = (function ($, cornerstone, cornerstoneMath, cornerstoneTo
             var text = "" + length.toFixed(1) + " mm ";
             data.measurementText = length.toFixed(1);
 
-            //This line is changed by ayselafsar
             if(isActiveLine){
                 $(eventData.enabledElement.element).trigger("LesionTextChanged",data);
             }

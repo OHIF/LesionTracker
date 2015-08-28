@@ -1,6 +1,3 @@
-/**
- * Created by ayselafsar on 05/08/15.
- */
 //Params of dragged images
 var draggedSrc = "";
 var draggedSeriesNumber = "";
@@ -104,9 +101,6 @@ function drop(ev) {
     droppedElShadow = droppedEl.shadowRoot;
     droppedElShadow.setThumbnailId(draggedId);
     droppedElShadow.loadDraggedStudy(draggedSrc,draggedSeriesNumber);
-    deactivateAllToolbarButtons();
-    //Refresh Table
-    //refreshTable(_id,draggedId,draggedTitle);
 }
 
 //Drag&Drop events end
@@ -235,16 +229,21 @@ function checkActiveTool(){
     }
 }
 $('.btnToolbar').click(function() {
-    $(this).siblings('.btnToolbar').css('border-width','1px');
-    $(this).siblings('.btnToolbar').addClass('btnToolbarHover');
+    deactivateAllToolbarButtons();
     $(this).css('border-width','5px');
     $(this).removeClass('btnToolbarHover');
-    deactivateAllToolbarButtons();
 });
 
 
 //Deactivate AllToolbarButtons
 function deactivateAllToolbarButtons(){
+    //Toolbar buttons style
+    var toolbuttons = document.querySelectorAll(".btnToolbar");
+    for(var i=0; i< toolbuttons.length;i++){
+        var btn = toolbuttons[i];
+        $(btn).css('border-width','1px');
+        $(btn).addClass('btnToolbarHover');
+    }
     btnWWWCActive = false;
     btnInvertActive = false;
     btnZoomActive = false;
@@ -256,7 +255,8 @@ function deactivateAllToolbarButtons(){
     btnRectROIActive = false;
     btnPlayClipActive = false;
     btnStopClipActive = false;
-
+    btnLesion = false;
+    deactivateCornerstoneTools();
 }
 
 //Click btnWWWC
@@ -325,18 +325,10 @@ function setLesionTableHeight () {
     });
 }
 
-//Detect keydown event
-$(document).keydown(function(e) {
-});
+
 //Detect window resize event
 $(window).resize(function() {
     //Set elements size when dom is ready
-    //Set margin-right of wrapper while right hiding-panel is open and resizing the window
-    if(rightPanelIsOpen){
-        $("#wrapper").css("width",wrapperPercentageRight+"%");
-        $("#wrapper").css("margin-right",(100 - wrapperPercentageRight)+"%");
-    }
-
     resizeCornerstoneEls();
 });
 
@@ -357,7 +349,20 @@ function resizeCornerstoneEls(){
         //Set lesion-table height
         setLesionTableHeight();
     }
+}
 
+//Deactivate cornerstone-viewport tools
+function deactivateCornerstoneTools () {
+    cornerstoneEls = document.getElementsByTagName('cornerstone-viewport');
+    if(cornerstoneEls.length >0 ) {
+        for(var i=0;i<cornerstoneEls.length;i++){
+            var _id = cornerstoneEls[i].getAttribute('id');
+            var _type = cornerstoneEls[i].getAttribute('type');
+            var el = document.getElementById(_id);
+            var shadowEl = el.shadowRoot;
+            shadowEl.deactivateAllTools();
+        }
+    }
 }
 
 

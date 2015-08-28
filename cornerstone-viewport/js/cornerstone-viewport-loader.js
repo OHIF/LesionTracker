@@ -1,8 +1,3 @@
-/**
- * Created by ayselafsar on 22/04/15.
- */
-
-
 //Load stack object from json file
 function loadStudyFromJSON(jsonFileName,seriesNumber,shadowEl){
     var stack = null;

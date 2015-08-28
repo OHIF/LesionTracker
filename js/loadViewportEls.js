@@ -1,6 +1,3 @@
-/**
- * Created by ayselafsar on 06/08/15.
- */
 //Load viewport elements
 var data = document.cookie;
 var jsonData = JSON.parse(data);

@@ -1,7 +1,3 @@
-/**
- * Created by ayselafsar on 01/06/15.
- */
-
 var lesionDoc = document.currentScript.ownerDocument;
 LesionTableProto = Object.create(HTMLTableElement.prototype);
 

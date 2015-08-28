@@ -1,6 +1,3 @@
-/**
- * Created by ayselafsar on 10/06/15.
- */
 
 var hidingPanelDoc = document.currentScript.ownerDocument;
 HidingPanelProto = Object.create(HTMLElement.prototype);
@@ -14,191 +11,140 @@ HidingPanelProto.createdCallback = function () {
     this.shadow.appendChild(cloneHidingPanel);
 
     shadowEl = this.shadow;
-    var nav = shadowEl.querySelector('#verticalPanel');
-    var wrapper = null;
+    var panel = shadowEl.querySelector('#panel');
+    var content = shadowEl.querySelector('#content');
     var btnCollapse = shadowEl.querySelector('#btnCollapse');
-
-    //TODO: Get wrapper dynamically
+    var btnCollapseIcon = shadowEl.querySelector('#btnCollapseIcon');
+    var panelIsOpen = true;
 
     //Get Type
     var typeAttr = "";
-    var widthAttr = "";
-    var heightAttr = "";
-    var resizingAttr;
-    var wrapperCollapse = true;
+    var widthAttr = "100";
+    var heightAttr = "100";
+    var resizingAttr = false;
 
-    //hiding-panel attributes: if w or h attribute is not defined, it gets 100% size
-
+    //hiding-panel attributes: if w or h attribute is not defined, it gets 100% siz
     for(var i=0;i< this.attributes.length;i++){
         var att = this.attributes[i];
         if(att.nodeName === 'type'){
-
             //Get type att: bottom,right,left
             typeAttr = att.nodeValue;
-
-
-        }else if(att.nodeName === 'w'){
-
-            //Get width attr
+        }else if(att.nodeName === 'width'){
+            //Get width
             widthAttr = att.nodeValue;
-
-            //Set panel width attribute
-            //Set same css style for each attribute because we does not know which attribute is set
-            if(typeAttr === "left"){
-
-                $(btnCollapse).css("left","0px");
-                $(nav).addClass("verticalPanel");
-                $(nav).css("width",widthAttr+"px");
-                $(btnCollapse).addClass("btnCollapse");
-
-            }else if(typeAttr === "right"){
-
-                $(btnCollapse).css("right","0px");
-                $(nav).addClass("verticalPanelRight");
-                $(nav).css("width",widthAttr+"px");
-                $(btnCollapse).addClass("btnCollapse");
-
-            }else if(typeAttr === "bottom"){
-                $(nav).addClass("verticalPanelBottom");
-                $(btnCollapse).addClass("btnCollapseBottom");
-
-            }
-
-        }else if(att.nodeName === 'h'){
-
-            //Get height attribute: percentage or px
+            //Get height
+        }else if(att.nodeName === 'height'){
             heightAttr = att.nodeValue;
-
-            //Check height attr is percentage or px
-            var n = heightAttr.search("%");
-
-            if(n>=0){
-
-                //If height is percentage, set panel height attributes
-                //Set same css style for each attribute because we does not know which attribute is set
-                if(typeAttr === "left"){
-
-                    $(btnCollapse).css("left","0px");
-                    $(nav).addClass("verticalPanel");
-                    $(btnCollapse).addClass("btnCollapse");
-
-                }else if(typeAttr === "right"){
-
-                    $(btnCollapse).css("right","0px");
-                    $(nav).addClass("verticalPanelRight");
-                    $(btnCollapse).addClass("btnCollapse");
-
-                }else if(typeAttr === "bottom"){
-
-                    $(nav).addClass("verticalPanelBottom");
-                    $(btnCollapse).addClass("btnCollapseBottom");
-                }
-                $(nav).css("height",heightAttr);
-
-            }else{
-
-                //If height is px, set panel height attributes
-                //Set same css style for each attribute because we does not know which attribute is set
-
-                if(typeAttr === "left"){
-
-                    $(btnCollapse).css("left","0px");
-                    $(nav).addClass("verticalPanel");
-                    $(btnCollapse).addClass("btnCollapse");
-
-                }else if(typeAttr === "right"){
-
-                    $(btnCollapse).css("right","0px");
-                    $(nav).addClass("verticalPanelRight");
-                    $(btnCollapse).addClass("btnCollapse");
-
-                }else if(typeAttr === "bottom"){
-
-                    $(nav).addClass("verticalPanelBottom");
-                    $(btnCollapse).addClass("btnCollapseBottom");
-
-                }
-                $(nav).css("height",heightAttr+"px");
-            }
-
-        }else if(att.nodeName === 'title'){
-
-            //Get title attribute: gives a title to collapse button
-            shadowEl.querySelector("#btnCollapse").title = att.nodeValue;
-
         }else if(att.nodeName === 'resizing'){
-
-            //Gets resizing attribute: gives information in HidingPanelCollapseEvent
-            $(nav).css("z-index","10");
-
-            if(att.nodeValue === "true"){
-                resizingAttr = true;
-            }else{
-                resizingAttr = false;
-            }
+            resizingAttr = (att.nodeValue === 'true');
         }
+    }
+
+
+    //Set panel first width/height
+    panel.style.width = widthAttr+"%";
+    panel.style.height = heightAttr+"%";
+
+    //Set elements position according to type
+    if(typeAttr === "top") {
+
+        //Set panel position
+        panel.style.top = "0";
+        panel.style.left = "0";
+
+        content.style.float = "none";
+
+        //Set btnCollapse position
+        btnCollapse.style.top = "0";
+        btnCollapse.style.left = "0";
+
+        //Set btnCollapseIcon
+        btnCollapseIcon.classList.add("fa-angle-up");
+
+    }else if(typeAttr === "right") {
+        //Set panel position
+        panel.style.right = "0";
+        panel.style.top = "0";
+
+        content.style.float = "right";
+
+        //Set btnCollapse position
+        btnCollapse.style.right = "0";
+        btnCollapse.style.top = "0";
+
+        //Set btnCollapseIcon
+        btnCollapseIcon.classList.add("fa-angle-right");
+
+
+    }else if(typeAttr === "bottom") {
+        //Set panel position
+        panel.style.bottom = "0";
+        panel.style.left = "0";
+
+        content.style.float = "bottom";
+
+        //Set btnCollapse position
+        btnCollapse.style.bottom = "0";
+        btnCollapse.style.left = "0";
+
+        //Set btnCollapseIcon
+        btnCollapseIcon.classList.add("fa-angle-down");
+
+    }else if(typeAttr === "left") {
+        //Set panel position
+        panel.style.left = "0";
+        panel.style.top = "0";
+
+        content.style.float = "left";
+
+        //Set btnCollapse position
+        btnCollapse.style.left = "0";
+        btnCollapse.style.top = "0";
+
+        //Set btnCollapseIcon
+        btnCollapseIcon.classList.add("fa-angle-left");
+
     }
 
     // Minify panel
     shadowEl.querySelector('#btnCollapse').addEventListener("click",function(e){
 
-        if(typeAttr === "bottom") {
+        if(panelIsOpen){
+            //Close
+            if(typeAttr === "left" || typeAttr === "right"){
+                panel.style.width = "0";
 
-            //Set collapse button as disabled, so user cannot hide/show in series
-            $(btnCollapse).attr("disabled", true);
-
-            //Add/Remove collapse class
-            nav.classList.toggle('panelCollapseBottom');
-            btnCollapse.classList.toggle('btnBottom');
-
-            $(btnCollapse).attr("disabled", false);
-
-            //Set panel height
-            wrapperCollapse? $(nav).css("height", "0%") : $(nav).css("height",heightAttr);
-
-            $(nav).one("webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend", function(event) {
-                //Call HidingPanelCollapseEvent after css transition is end
-                var eventParams = {type: typeAttr,height:$(nav).height(),width:widthAttr,wWidth:wWidth,collapse: wrapperCollapse,resizing: resizingAttr};
-                $(document).trigger("HidingPanelCollapseEvent",eventParams);
-            });
+            }else if(typeAttr === "top" || typeAttr === "bottom") {
+                panel.style.height = "0";
+            }
 
         }else{
+            //Open
 
-            //Add/Remove collapse class for right and left hiding-panel
-            nav.classList.toggle('panelCollapse');
+            if(typeAttr === "left" || typeAttr === "right"){
 
-            //Set width attributes
-            if(typeAttr === "left"){
+                panel.style.width = widthAttr+"%";
+            }else if(typeAttr === "top" || typeAttr === "bottom") {
 
-                if(wrapperCollapse){
-                    $(nav).css("width","0px");
-                }else{
-                    $(nav).css("width", widthAttr+"px");
-                }
-
-            }else if(typeAttr === "right"){
-
-                if(wrapperCollapse){
-                    $(nav).css("width","0px");
-                }else{
-                    $(nav).css("width", widthAttr+"px");
-                }
+                panel.style.height = heightAttr+"%";
             }
-
-            //Resize children of parent for new dimensions, calculate width attribute
-            var wWidth = 0;
-            if(wrapperCollapse){
-                wWidth = $(window).width();
-            }else{
-                wWidth = $(window).width()- widthAttr;
-            }
-            var eventParams = {type: typeAttr,height:$(nav).height(),width:widthAttr,wWidth:wWidth,collapse: wrapperCollapse,resizing: resizingAttr};
-            $(document).trigger("HidingPanelCollapseEvent",eventParams);
-
         }
 
-        //wrapperCollapse is true when panel is open, set it reverse
-        wrapperCollapse = !wrapperCollapse;
+        if(typeAttr === "left" || typeAttr === "right"){
+
+            content.classList.toggle('content-collapseHorizontal');
+        }else if(typeAttr === "top" || typeAttr === "bottom") {
+
+            content.classList.toggle('content-collapseVertical');
+        }
+
+        btnCollapseIcon.classList.toggle('btnCollapseIcon-collapse');
+        panelIsOpen = !panelIsOpen;
+
+        var data = {panelIsOpen: panelIsOpen, width: widthAttr, height: heightAttr, type: typeAttr, resizing: resizingAttr};
+        $(document).trigger("HidingPanelCollapseEvent",data);
+
+
 
     });
 

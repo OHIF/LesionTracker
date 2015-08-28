@@ -1,6 +1,3 @@
-/**
- * Created by ayselafsar on 26/05/15.
- */
 var doc = document.currentScript.ownerDocument;
 CornerstoneProto = Object.create(HTMLElement.prototype);
 
