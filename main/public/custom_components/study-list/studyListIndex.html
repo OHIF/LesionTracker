@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <!--Prevent cache-->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+
+    <title>Lesion Tracker</title>
+    <link rel="stylesheet" href="/bower_components/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/custom_components/study-list/css/view_style.css">
+    <link rel="icon" href="images/logo.png">
+
+    <link rel="import" href="custom_components/lesion-location-dialog/lesion-location-dialog.html">
+    <link rel="import" href="custom_components/lesion-table/lesion-table.html">
+    <link rel="import" href="custom_components/hiding-panel/hiding-panel.html">
+    <link rel="import" href="custom_components/cornerstone-viewport/cornerstone-viewport.html" id="cornerstone-viewport">
+    <style>
+        *{margin:0;padding:0}
+        html, body {height:100%;width:100%;overflow:hidden};
+        iframe {height:100%;width:100%}
+
+    </style>
+
+</head>
+
+<body>
+<div id="topContainer" class="top-container" style="color:white;height: 100%;">
+
+    <!--hiding-panel begins-->
+    <hiding-panel id="lesionTablePanel" type="right" height="100" width="15" resizing="true" title="Lesion Tables">
+        <table is="lesion-table" id="left" height="50" caption="Current"></table>
+        <table is="lesion-table" id="right" height="50" caption="Prior"></table>
+    </hiding-panel>
+    <!--hiding-panel ends-->
+
+    <div id="wrapper" class="wrapper" style="position: relative; height: 100%; width: 100%; margin: 0; padding: 0; float: none;">
+        <div class="row toolbar-container" style="width: 100%; margin: 0 auto; float:none;">
+            <button type="button" id="btnWWWC" class="btnToolbar btnRed btnToolbarHover"  title="WW/WC"><span class="fa fa-sun-o"></span></button>
+            <button type="button" id="btnInvert"  class="btnToolbar btnRed btnToolbarHover" title="Invert"><span class="fa fa-adjust"></span></button>
+            <button type="button" id="btnZoom"  class="btnToolbar btnGreen btnToolbarHover" title="Zoom"><span class="fa fa-search"></span></button>
+            <button type="button" id="btnPan"  class="btnToolbar btnGreen btnToolbarHover" title="Pan"><span class="fa fa-arrows"></span></button>
+            <button type="button" id="btnStackScroll"  class="btnToolbar btnGreen btnToolbarHover" title="Stack Scroll"><span class="fa fa-bars"></span></button>
+            <button type="button" id="btnPlayClip"  class="btnToolbar btnGreen btnToolbarHover" title="Play Clip"><span class="fa fa-play"></span></button>
+            <button type="button" id="btnStopClip"  class="btnToolbar btnGreen btnToolbarHover" title="Stop Clip"><span class="fa fa-stop"></span></button>
+            <button type="button" id="btnPixelProbe"  class="btnToolbar btnBlue btnToolbarHover" title="Pixel Probe"><span class="fa fa-dot-circle-o"></span></button>
+            <button type="button" id="btnLengthMeasurement"  class="btnToolbar btnBlue btnToolbarHover" title="Length Measurement"><span class="fa fa-arrows-v"></span></button>
+            <button type="button" id="btnElliROI"  class="btnToolbar btnBlue btnToolbarHover" title="Elliptical ROI"><span class="fa fa-circle-o"></span></button>
+            <button type="button" id="btnRectROI"  class="btnToolbar btnBlue btnToolbarHover" title="Rectangle ROI"><span class="fa fa-square-o"></span></button>
+            <button type="button" id="btnLesion"  class="btnToolbar btnYellow btnToolbarHover" title="Lesion Tool"><span class="fa fa-arrows-v"></span></button>
+        </div><!--wrapper ends-->
+
+        <div id="viewport-container" class="row viewport-container" style="width: 100%; margin: 0 auto; float:none;">
+            <div id="leftContainer" class="viewport" ondrop="drop(event)" ondragover="allowDrop(event)">
+            </div>
+            <div id="rightContainer" class="viewport" ondrop="drop(event)" ondragover="allowDrop(event)">
+            </div>
+        </div> <!--viewport-container ends-->
+
+        <!-- hiding-panel for thumbnails-->
+        <hiding-panel type="bottom" height="30" title="Thumbnails" resizing="true">
+            <div id="bottomContainer" class="bottom-container">
+            </div>
+        </hiding-panel>
+
+    </div><!--wrapper ends-->
+
+</div><!--top-container ends-->
+
+<!--lesionLocationDialog box-->
+<lesion-location-dialog></lesion-location-dialog>
+<!--lesionLocationDialog box ends-->
+
+<!-- Start of StatCounter Code for Default Guide -->
+<!--<script type="text/javascript">
+    var sc_project=10473086;
+    var sc_invisible=1;
+    var sc_security="6e2c463b";
+    var scJsHost = (("https:" == document.location.protocol) ?
+            "https://secure." : "http://www.");
+    document.write("<sc"+"ript type='text/javascript' src='" +
+    scJsHost+
+    "statcounter.com/counter/counter.js'></"+"script>");
+</script>-->
+<!--<noscript><div class="statcounter"><a title="web counter"
+                                      href="http://statcounter.com/" target="_blank"><img
+        class="statcounter"
+        src="http://c.statcounter.com/10473086/0/6e2c463b/1/"
+        alt="web counter"></a></div></noscript>-->
+<!-- End of StatCounter Code for Default Guide -->
+</body>
+
+<script src="/custom_components/study-list/js/loadViewportEls.js"></script>
+<script src="/custom_components/study-list/js/layoutManagerStudyList.js"></script>
+<script src="/custom_components/study-list/js/viewportHelperStudyList.js"></script>
+<script src="/custom_components/cornerstone-viewport/js/lesionTool.js"></script>
+
+</html>

@@ -1,0 +1,27 @@
+
+<script src="js/lesion-table.js"></script>
+<template id="lesion-table-template">
+
+    <style>
+        /*Import lesion-table-style for main styles of shadow dom*/
+        @import url("/bower_components/fontawesome/css/font-awesome.min.css");
+        @import url("/custom_components/lesion-table/css/lesion-table-style.css");
+    </style>
+    <div id="table-container" class="row" style="margin: 5px auto; float:none; padding: 0;">
+        <div id="tableCaption" class="row captionDiv" style="text-align: center;"></div>
+        <div class="row" style="margin: 0 auto; float: none;">
+            <table id="tblLesion">
+                <thead>
+                <tr class="headRow">
+                    <th>#</th>
+                    <th>Location</th>
+                    <th>LD</th>
+                    <th style="text-align: center;"><i class="fa fa-times fa-lg"></i></th>
+                </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+</template>

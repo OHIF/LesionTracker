@@ -1,0 +1,52 @@
+{
+  "name": "cornerstoneTools",
+  "version": "0.7.3",
+  "description": "Tools for use with the cornerstone HTML5 Medical Image Viewer Component",
+  "main": "dist/cornerstoneTools.js",
+  "ignore": [
+    "examples",
+    "src",
+    "test",
+    "gruntfile.js",
+    "package.json",
+    "bower.json",
+    ".gitignore"
+  ],
+  "dependencies": {
+    "cornerstone": "~0.8.1",
+    "cornerstoneMath": "~0.1.2",
+    "hammerjs": "~2.0.4",
+    "jquery": "~2.1.1"
+  },
+  "devDependencies": {
+    "qunit": "~1.14.0",
+    "jquery": "~2.1.1"
+  },
+  "license": "MIT",
+  "authors": [
+    "Chris Hafey",
+    "Prasath"
+  ],
+  "homepage": "https://github.com/chafey/cornerstoneTools",
+  "keywords": [
+    "DICOM",
+    "medical",
+    "imaging",
+    "cornerstone",
+    "cornerstoneTools"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chafey/cornerstoneTools.git"
+  },
+  "_release": "0.7.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.7.3",
+    "commit": "711a20b7d95f7fb82499ed641c036186f047b159"
+  },
+  "_source": "git://github.com/chafey/cornerstoneTools.git",
+  "_target": "~0.7.3",
+  "_originalSource": "cornerstoneTools",
+  "_direct": true
+}

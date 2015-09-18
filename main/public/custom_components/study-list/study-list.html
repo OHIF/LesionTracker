@@ -1,0 +1,129 @@
+<template id="study-list-template" name="StudyTemplate">
+    <style>
+        @import url("/bower_components/bootstrap/dist/css/bootstrap.css");
+        @import url("/custom_components/study-list/css/study-list.css");
+    </style><!--style ends-->
+    <div id="container" style="position:absolute; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%; margin: 0 auto; float:none;">
+
+        <div class="tabbable" style="position: absolute; top:0; left:0; bottom: 0; right: 0; width: 100%; height: 100%;">
+            <ul id="tabs" class="nav nav-tabs" style="width:100%;">
+                <li class="active"><a id="tabList" data-toggle="tab">Study List</a></li>
+            </ul>
+            <div id="tabs-content" class="tab-content" style="position: absolute; top: 42px; left: 0; right: 0; bottom:3px; width: 100%;">
+                <div id="contentList" class="tab-pane active">
+                    <!--Search Panel-->
+                    <div class="panel panel-default">
+                        <div class="panel-heading" id="search-panel-head">Search</div>
+                        <div class="panel-body">
+                            <div style="padding: 10px;">
+                                <div class="row">
+                                    <div class="col-lg-8 col-md-8 col-xs-12">
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-3 col-xs-10">
+                                                <div class="form-group">
+                                                    <label for="patientId">Patient ID</label>
+                                                    <input type="text" class="form-control" id="patientId" placeholder="Patient ID">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-xs-10">
+                                                <div class="form-group">
+                                                    <label for="patientName">Name</label>
+                                                    <input type="text" class="form-control" id="patientName" placeholder="Name">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-xs-10">
+                                                <div class="form-group">
+                                                    <label for="patientAccessionNumber">Accession #</label>
+                                                    <input type="text" class="form-control" id="patientAccessionNumber" placeholder="Accession #">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-xs-10">
+                                                <div class="form-group">
+                                                    <label for="studyDescription">Study Description</label>
+                                                    <input type="text" class="form-control" id="studyDescription" placeholder="Study Description">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-3 col-xs-10">
+                                                <!--Add calendar ui-->
+                                                <div class="form-group">
+                                                    <label for="">Study Date(from)</label>
+                                                    <p><input type="checkbox" id="checkFrom"><input id="studyDateFrom" type="date" class="form-control" style="padding-left: 30px;"></p>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-xs-10">
+                                                <div class="form-group">
+                                                    <label for="">Study Date(to)</label>
+                                                    <p><input type="checkbox" id="checkTo"><input id="studyDateTo" type="date" class="form-control" style="padding-left:30px;"></p>
+
+
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-xs-10">
+                                                <div class="form-group">
+                                                    <label for="referringPhysician">Referring Physician</label>
+                                                    <input type="text" class="form-control" id="referringPhysician" placeholder="Referring Physician">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-xs-10">
+                                                <div class="form-group">
+                                                    <label for="modality">Modality</label>
+                                                    <input type="text" class="form-control" id="modality" placeholder="Modality">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-4 col-xs-12">
+                                        <div class="row" style="margin-top: 25px;margin-bottom: 25px;">
+                                            <div class="col-lg-4 col-md-6 col-xs-6">
+                                                <button class="btn btn-primary" id="btnSearch">Search</button>
+                                            </div>
+                                            <div class="col-lg-4 col-md-6 col-xs-6">
+                                                <button class="btn btn-primary" id="btnToday">Today</button>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-6 col-xs-6">
+                                                <button class="btn btn-primary" id="btnClear">Clear</button>
+                                            </div>
+                                            <div class="col-lg-4 col-md-6 col-xs-6">
+                                                <button class="btn btn-primary" id="btnLastSevenDays">Last 7 Days</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Search panel ends-->
+
+                    <table class="tblStudyList">
+                        <thead>
+                        <tr>
+                            <th>Patient Name</th>
+                            <th>Patient ID</th>
+                            <th>Accession Number</th>
+                            <th>Study Date</th>
+                            <th>Modality</th>
+                            <th>Study Instance UID</th>
+                            <th># Images</th>
+                        </tr>
+                        </thead>
+
+                        <tbody id="tblStudyList"></tbody>
+                    </table>
+                </div>
+
+            </div><!-- /.tab-content -->
+        </div><!-- /.tabbable -->
+
+    </div>
+
+</template> <!--template ends-->
+
+<script src="js/study-list.js"></script>
