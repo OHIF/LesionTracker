@@ -1,0 +1,15 @@
+<template name="studyList">
+    <div class="tabbable" style="cursor: pointer; position: absolute; top:0; left:0; bottom: 0; right: 0; width: 100%; height: 100%; color: black;">
+        <ul id="tabs" class="nav nav-tabs" style="width:100%;">
+            <li class="active"><a id="tabList" data-toggle="tab">Study List</a></li>
+        </ul>
+        <div id="tabs-content" class="tab-content" style="position: absolute; top: 42px; left: 0; right: 0; bottom:3px; width: 100%;">
+            <div id="contentList" class="tab-pane active">
+                {{> studyListSearch }}
+                {{> studyListResult }}
+            </div>
+
+        </div><!-- /.tab-content -->
+    </div><!-- /.tabbable -->
+
+</template>
