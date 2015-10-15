@@ -36,7 +36,7 @@ rerenderViewportWithNewSeries = function(element, data) {
     container.appendChild(newViewportContainer);
 
     // Render and insert the template
-    UI.renderWithData(Template.imageViewer, data, newViewportContainer);
+    UI.renderWithData(Template.imageViewerViewport, data, newViewportContainer);
 
     Session.set('loadedSeriesDictionary', OHIF.viewer.imageViewerLoadedSeriesDictionary);
 };

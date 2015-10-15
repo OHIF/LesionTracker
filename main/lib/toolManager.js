@@ -50,10 +50,6 @@ toolManager = {
             mouse: cornerstoneTools.length,
             touch: cornerstoneTools.lengthTouch
         });
-        toolManager.addTool('lesion', {
-            mouse: cornerstoneTools.lesion,
-            touch: cornerstoneTools.lesionTouch
-        });
         toolManager.addTool('angle', {
             mouse: cornerstoneTools.simpleAngle,
             touch: cornerstoneTools.simpleAngleTouch
@@ -74,6 +70,11 @@ toolManager = {
             mouse: cornerstoneTools.arrowAnnotate,
             touch: cornerstoneTools.arrowAnnotateTouch
         });
+
+        toolManager.addTool('lesion', {
+            mouse: cornerstoneTools.lesion,
+            touch: cornerstoneTools.lesionTouch
+        });
         activeTool = OHIF.viewer.defaultTool;
 
         configureTools();
@@ -87,11 +88,11 @@ toolManager = {
             toolManager.init();
         }
 
-        $('#toolbar .btn-group button').removeClass('active');
+        $('#toolRow .btn-group button').removeClass('active');
         var toolButton = document.getElementById(tool);
         toolButton.classList.add('active');
 
-        $('.imageViewer').each(function(index, element) {
+        $('.imageViewerViewport').each(function(index, element) {
             var canvases = $(element).find('canvas');
             if (!element.classList.contains('empty') && canvases.length > 0) {
                 // First, deactivate the current active tool

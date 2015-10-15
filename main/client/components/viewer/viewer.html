@@ -1,6 +1,11 @@
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1,maximum-scale=1,user-scalable=no">
+</head>
+
 <template name="viewer">
-    <div id="viewer" class="viewer">
-        {{> thumbnailContainer}}
-        {{> mainViewer}}
+    <div id="viewer" style="width: 100%; height: 80%;">
+        {{> studyBrowser}}
+        <!-- {{> viewerMain}}-->
     </div>
+    <div id="bottomContainer" style="width: 100%; height: 20%;"><h3>Lesion Table</h3></div>
 </template>

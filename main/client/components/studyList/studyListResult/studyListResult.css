@@ -1,5 +1,0 @@
-table#tblStudyList {
-    color: black;
-}
-
-table#tblStudyList tbody tr:hover {background-color: #009BD2; color:white;}

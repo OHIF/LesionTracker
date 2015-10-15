@@ -4,6 +4,7 @@
     //Collapse the container
     function collapseContainer ( container ) {
         container.toggleClass("collapseHorizontal");
+        var btnCollapse = container.find(".btnCollapse");
     }
 
     //function add collapse button

@@ -26,7 +26,19 @@ function resultDataToStudyMetadata(server, studyInstanceUid, resultData) {
 
     var sopInstanceUid = DICOMWeb.getString(instance['00080018']);
 
-    var instance = {
+    var instanceSummary = {
+      // -----------
+      // TODO = Fix this
+      // This doesn't seem like the best place to put this, but otherwise we have no study info
+      patientName: DICOMWeb.getName(instance['00100010']),
+      patientId: DICOMWeb.getString(instance['00100020']),
+      accessionNumber : DICOMWeb.getString(instance['00080050']),
+      studyDate: DICOMWeb.getString(instance['00080020']),
+      modalities: DICOMWeb.getString(instance['00080061']),
+      studyDescription: DICOMWeb.getString(instance['00081030']),
+      imageCount: DICOMWeb.getString(instance['00201208']),
+      studyInstanceUid: DICOMWeb.getString(instance['0020000D']),
+      // -----------
       imageType: DICOMWeb.getString(instance['00080008']),
       sopClassUid: DICOMWeb.getString(instance['00080016']),
       sopInstanceUid: sopInstanceUid,
@@ -51,12 +63,12 @@ function resultDataToStudyMetadata(server, studyInstanceUid, resultData) {
     };
 
     if(server.imageRendering === 'wadouri') {
-      instance.wadouri = server.wadoUriRoot + '?requestType=WADO&studyUID=' + studyInstanceUid + '&seriesUID=' + seriesInstanceUid + '&objectUID=' + sopInstanceUid + "&contentType=application%2Fdicom";
+      instanceSummary.wadouri = server.wadoUriRoot + '?requestType=WADO&studyUID=' + studyInstanceUid + '&seriesUID=' + seriesInstanceUid + '&objectUID=' + sopInstanceUid + "&contentType=application%2Fdicom";
     } else {
-      instance.wadorsuri = server.wadoRoot + '/studies/' + studyInstanceUid + '/series/' + seriesInstanceUid + '/instances/' + sopInstanceUid + '/frames/1';
+      instanceSummary.wadorsuri = server.wadoRoot + '/studies/' + studyInstanceUid + '/series/' + seriesInstanceUid + '/instances/' + sopInstanceUid + '/frames/1';
     }
 
-    series.instances.push(instance);
+    series.instances.push(instanceSummary);
   });
   return seriesList;
 }

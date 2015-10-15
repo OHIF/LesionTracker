@@ -1,0 +1,46 @@
+<template name="worklist">
+    <div class='container'>
+        <div class="tabbable" style="cursor: pointer; position: absolute; top:0; left:0; bottom: 0; right: 0; width: 100%; height: 100%; color: black;">
+            <ul id="tabs" class="nav nav-tabs" style="width:100%;">
+                <li class="active"><a id="tabList" data-toggle="tab">Study List</a></li>
+
+                <!-- study tabs-->
+                {{#each tabs}}
+                    <li><a id="tab{{tabId}}" data-toggle="tab">{{data.patientName}}</a></li>
+                {{/each}}
+            </ul>
+            <div id="tabs-content" class="tab-content" style="position: absolute; top: 42px; left: 0; right: 0; bottom:3px; width: 100%;">
+
+                <!-- Study List starts-->
+                <div id="contentList" class="tab-pane active">
+                    {{> worklistSearch }}
+                    {{> worklistResults }}
+                </div>
+                <!-- Study List ends -->
+
+                <!-- Study tabs start, show instances in these tabs-->
+                {{#each tabs}}
+                    <div id="content{{tabId}}" class="tab-pane">
+                        <div style="width: 100%; height: 80%;">
+                            <div id="studyBrowser" class="studyBrowser">
+                                {{#each studies}}
+                                    {{> thumbnails}}
+                                {{/each}}
+                            </div>
+                            {{> DynamicTemplate template=getTemplate data=this }}
+                        </div>
+                        <div id="lesionTableContainer" style="width: 100%; height: 20%;">
+                            <div style="width: 50%; height: 100%;float: left; overflow: auto;">{{> lesionTable}}</div>
+                            <div style="width: 50%; height: 100%;float: left; overflow: auto;">{{> lesionTable}}</div>
+                        </div>
+                    </div>
+                {{/each}}
+                {{> lesionDialog}}
+
+                <!-- Study tabs end -->
+
+            </div><!-- /.tab-content -->
+        </div><!-- /.tabbable -->
+
+    </div>
+</template>

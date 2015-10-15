@@ -1,0 +1,14 @@
+<template name="imageViewerViewport">
+    <div class='imageViewerViewport'
+        oncontextmenu='return false;'
+        unselectable='on'
+        onselectstart='return false;'>
+    </div>
+    <div class='viewportInstructions'>
+        Please drag a stack here to view images.
+    </div>
+    <!--{{> DynamicTemplate template='viewportOverlay' data=tabData}}-->
+
+    {{ >viewportOverlay }}
+    {{ >viewportOrientationMarkers }}
+</template>
