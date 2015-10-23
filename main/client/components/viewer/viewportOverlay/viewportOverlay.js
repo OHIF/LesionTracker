@@ -24,7 +24,6 @@ function getElementIfNotEmpty(viewportIndex) {
 }
 
 function getPatient(property) {
-    console.log(this);
     Session.get('CornerstoneNewImage' + this.viewportIndex);
     if (!this.imageId) {
         return false;

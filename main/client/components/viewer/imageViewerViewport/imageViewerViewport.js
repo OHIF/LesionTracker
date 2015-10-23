@@ -27,7 +27,7 @@ function enablePrefetchOnElement(element) {
     }
 }
 
-function loadSeriesIntoViewport(data) {
+function loadSeriesIntoViewport(data, template) {
     if (!data.series || !data.viewport) {
         return;
     }
@@ -142,9 +142,12 @@ function loadSeriesIntoViewport(data) {
         // LesionTool Events
 
         $(element).on("LesionMeasurementCreated",function(e){
-            //Set lesion name after lesion created
-            // TODO: Set counter variable in here with rectiveVar
-            $(element).trigger("LesionNameSet", "1");
+            // Increment lesion counter
+            // Set lesion name after lesion created
+            var lesion_counter = template.lesionCounter.get() + 1;
+            template.lesionCounter.set(lesion_counter);
+
+            $(element).trigger("LesionNameSet", lesion_counter);
             Session.set("lesionLocationSelected", false);
 
         });
@@ -162,7 +165,6 @@ function loadSeriesIntoViewport(data) {
 }
 
 Template.imageViewerViewport.onRendered(function() {
-
     // Get tabData and get imageViewer element for each tab by tabId
     var tabData = Template.instance().data;
     var tabId = tabData.tabId;
@@ -216,7 +218,7 @@ Template.imageViewerViewport.onRendered(function() {
         data.series = stacks[viewportIndex].series;
         data.study = stacks[viewportIndex].study;
     }
-    loadSeriesIntoViewport(data);
+    loadSeriesIntoViewport(data, this);
 
 });
 
@@ -227,23 +229,22 @@ Template.imageViewerViewport.events({
     },
 
     'mouseup .imageViewerViewport': function (e, template) {
-
-        // if tool type is lesion, oepn lesion location dialog
+        var lesion_counter =  template.lesionCounter.get();
+        // if tool type is lesion, open lesion location dialog
         var activeTool = toolManager.getActiveTool();
         if(activeTool === "lesion") {
-            // TODO: Create lesion obj: Get thumbnailId, imageId, toolType, lineIndex, lesions
             var lesionObj = {
                 imageId: 0,
                 toolType: activeTool,
                 lineIndex: lesionData.index,
                 lesions: lesionData.text,
                 element: e.currentTarget,
-                tabId: template.data.tabId
+                tabId: template.data.tabId,
+                lesionNumber: lesion_counter
             };
 
             //Trigger lesionMeasurementCreated event
             $(document).trigger("lesionMeasurementCreated", [e, lesionObj]);
-            // TODO: Call lesionMeasurementCreated event to call lesion-location dialog modal view
         }
     }
 

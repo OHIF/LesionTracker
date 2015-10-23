@@ -29,9 +29,8 @@
                             </div>
                             {{> DynamicTemplate template=getTemplate data=this }}
                         </div>
-                        <div id="lesionTableContainer" style="width: 100%; height: 20%;">
-                            <div style="width: 50%; height: 100%;float: left; overflow: auto;">{{> lesionTable}}</div>
-                            <div style="width: 50%; height: 100%;float: left; overflow: auto;">{{> lesionTable}}</div>
+                        <div id="lesionTableContainer" class="lesionTableContainer" style="width: 100%; height: 20%; background-color: black; overflow: auto;">
+                            {{> lesionTable}}
                         </div>
                     </div>
                 {{/each}}

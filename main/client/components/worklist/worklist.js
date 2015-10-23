@@ -39,6 +39,4 @@ Template.worklist.onRendered( function () {
         }
 
     });
-
-    // Add docking-container for thumbnails container
 });
